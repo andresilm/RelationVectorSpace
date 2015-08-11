@@ -1,6 +1,5 @@
 package main;
 
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 public class Main {
 	public static void main(String[] args) throws IOException, InterruptedException {
@@ -16,18 +17,22 @@ public class Main {
 			BufferedWriter output = new BufferedWriter(new FileWriter(new File(args[1])));
 			int numThreads = Integer.valueOf(args[2]);
 			SharedRelationVectors relationsVectors = new SharedRelationVectors();
-			ExtractionProcessingPool threadsPool = new ExtractionProcessingPool(numThreads,relationsVectors);
-			threadsPool.start();
+			
+			ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(numThreads);
+
 			while (input.hasNextLine()) {
+
 				String line = input.nextLine();
-				//while (!threadsPool.hasFreeThread()){System.err.println("Waiting for a free thread.");}
-				threadsPool.assignNewLineToProcess(line);
+				System.err.println("line = " + line);
+				ArgumentCounter argCounter = new ArgumentCounter(relationsVectors, line);
+
+				
+				executor.execute(argCounter);
+
 				
 			}
-			
-			
-			
+
 		}
-		
+
 	}
 }
