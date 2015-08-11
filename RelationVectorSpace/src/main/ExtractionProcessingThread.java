@@ -5,20 +5,31 @@ import java.util.Map;
 
 public class ExtractionProcessingThread extends Thread {
 	SharedRelationVectors relationsVectors;
-	private boolean waitingNewJob = true;
+	private boolean waitingNewJob;
 
 	ExtractionProcessingThread(SharedRelationVectors relationsVectors) {
-		System.err.println("Starting thread");
+		
 		this.relationsVectors = relationsVectors;
+		waitingNewJob = true;
+		
+	}
+	
+	@Override
+	public void start() {
+		super.start();
+		System.err.println("Starting thread " + this.getName() + ". Waiting for new job.");
 	}
 
-	public void processLine(String line) {
-		System.err.println("Processing line");
+	public void processLine(String line) throws InterruptedException {
 		this.waitingNewJob = false;
+		System.err.println("Processing line in thread " + this.getName());
+	
 		String[] lineSplit = line.split("\\|");
 		System.out.println(lineSplit[0].length());
+		sleep(5000);
+	
+		System.err.println("Thread "+this.getName()+ " finished its job.");
 		this.waitingNewJob = true;
-		System.err.println("Thread finished job");
 	}
 
 	public boolean isWaitingNewJob() {

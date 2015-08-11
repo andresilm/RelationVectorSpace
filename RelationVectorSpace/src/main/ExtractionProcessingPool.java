@@ -1,16 +1,26 @@
 package main;
 
-public class ExtractionProcessingPool {
+public class ExtractionProcessingPool extends Thread {
 	ExtractionProcessingThread[] threads;
 	int numThreads;
 
 	public ExtractionProcessingPool(int numThreads,SharedRelationVectors relationsVectors) {
 		threads = new ExtractionProcessingThread[numThreads];
-		for (ExtractionProcessingThread thread: threads) {
-			thread = new ExtractionProcessingThread(relationsVectors); 
-			thread.start();
+		for (int i = 0; i < numThreads; ++i) {
+			threads[i] = new ExtractionProcessingThread(relationsVectors); 
+			
 		}
 		this.numThreads = numThreads;
+	}
+	
+	@Override
+	public void start() {
+		super.start();
+		System.err.println("Pool with thread id: " + this.getName());
+		for (ExtractionProcessingThread thread: threads) {
+			thread.start(); 
+			
+		}
 	}
 
 	public boolean hasFreeThread() {
@@ -31,7 +41,7 @@ public class ExtractionProcessingPool {
 		return -1;
 	}
 
-	public boolean assignNewLineToProcess(String line) {
+	public synchronized boolean assignNewLineToProcess(String line) throws InterruptedException {
 		int freeIndex = getFreeThread();
 		if (freeIndex > -1) {
 			threads[freeIndex].processLine(line);
