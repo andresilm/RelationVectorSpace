@@ -6,19 +6,19 @@ import java.util.Map;
 
 
 
-public class ArgumentProcessor implements Runnable {
+public class LineProcessor implements Runnable {
 	SharedRelationVectors relationsVectors;
 	Map<String,List<String>> taxonomyDict;
 	private String line;
 	Lemmatizer lemmatizer;
 
-	ArgumentProcessor(SharedRelationVectors relationsVectors) {
+	LineProcessor(SharedRelationVectors relationsVectors) {
 
 		this.relationsVectors = relationsVectors;
 
 	}
 
-	public ArgumentProcessor(SharedRelationVectors relationsVectors, String line, Map<String,List<String>> taxonomyDict,Lemmatizer lemmatizer) {
+	public LineProcessor(SharedRelationVectors relationsVectors, String line, Map<String,List<String>> taxonomyDict,Lemmatizer lemmatizer) {
 		this.relationsVectors = relationsVectors;
 		this.line = line;
 		this.taxonomyDict = taxonomyDict;

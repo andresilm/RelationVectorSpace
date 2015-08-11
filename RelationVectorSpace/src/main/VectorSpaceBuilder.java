@@ -14,31 +14,31 @@ public class VectorSpaceBuilder {
 	Scanner source;
 	List<String> relationsToBuild;
 	SharedRelationVectors relationsVectors = new SharedRelationVectors();
-	ScheduledThreadPoolExecutor executor;
 	Scanner input;
 	BufferedWriter output;
 
-	VectorSpaceBuilder(String extractionFilename, String outputFilename, int numThreads) throws IOException {
+	VectorSpaceBuilder(String extractionFilename) throws IOException {
 		loadTaxonomyDict();
-		executor = new ScheduledThreadPoolExecutor(numThreads);
+		
 		input = new Scanner(new FileReader(new File(extractionFilename)));
-		output = new BufferedWriter(new FileWriter(new File(outputFilename)));
+		
 	}
 
 	public void buildSpaceFor(List<String> relationsToBuild) {
 
 	}
 
-	public void saveAsCSV() {
-
+	public void saveAsCSV(String outputFilename) throws IOException {
+		output = new BufferedWriter(new FileWriter(new File(outputFilename)));
 	}
 
-	public void create() {
-
+	public void create(int numThreads) {
+		ScheduledThreadPoolExecutor executor;
+		executor = new ScheduledThreadPoolExecutor(numThreads);
 	}
 
-	private void loadTaxonomyDict() {
-
+	private void loadTaxonomyDict() throws FileNotFoundException {
+		Scanner taxFile = new Scanner(new FileReader(new File("resources/taxonomy.txt")));
 	}
 
 }

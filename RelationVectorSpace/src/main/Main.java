@@ -16,13 +16,10 @@ public class Main {
 			
 			int numThreads = Integer.valueOf(args[2]);
 			
-			while (input.hasNextLine()) {
-				String line = input.nextLine();
-				System.err.println("line = " + line);
-
+			
 			}
 
 		}
 
-	}
+	
 }
