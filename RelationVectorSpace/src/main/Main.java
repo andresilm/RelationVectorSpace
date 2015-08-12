@@ -36,7 +36,7 @@ public class Main {
 			spaceBuilder.create(numThreads, relationsToBuild);
 
 			System.out.println("Saving relations vectors to file " + outputFilename);
-			spaceBuilder.saveAsCSV(outputFilename);
+			spaceBuilder.saveToFile(outputFilename);
 
 			System.out.println("Done.");
 

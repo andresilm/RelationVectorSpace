@@ -24,6 +24,9 @@ public class VectorSpaceBuilder {
 	Scanner input;
 	int runningTasks = 0;
 	
+	
+	
+	
 	VectorSpaceBuilder(String extractionFilename) throws IOException {
 		input = new Scanner(new FileReader(new File(extractionFilename)));
 		relationsVectors = new SharedVectorsCollection();
@@ -32,18 +35,22 @@ public class VectorSpaceBuilder {
 
 	
 
-	public void saveAsCSV(String outputFilename) throws IOException {
+	public void saveToFile(String outputFilename) throws IOException {
 		BufferedWriter output = new BufferedWriter(new FileWriter(new File(outputFilename)));
+		for (String key: this.relationsVectors.getVectors().keySet()) {
+			output.write(key + "|" + this.relationsVectors.getVectors().get(key).toString() + "\n");
+		}
+		output.close();
 	}
 
 	public void create(int numThreads, List<String> relationsToBuild) {
 		ScheduledThreadPoolExecutor taskRunner;
 	
-		numThreads = 4;
+		numThreads = 2;//Runtime.getRuntime().availableProcessors()-1;
 		taskRunner =  new ScheduledThreadPoolExecutor(numThreads);
 		taskRunner.setMaximumPoolSize(numThreads);
 		taskRunner.setCorePoolSize(numThreads);
-		
+		System.out.println("Running with " + numThreads + " cores.");
 		int lineCounter = 0;
 		
 		while (input.hasNextLine()) {

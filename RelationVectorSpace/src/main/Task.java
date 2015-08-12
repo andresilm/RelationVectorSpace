@@ -30,7 +30,7 @@ public class Task implements Runnable {
 		 Thread.currentThread().getName());
 
 		try {
-			processLine(this.lineCounter,this.getLine(), relationsVectors, relationsToBuildFor);
+			LineProcessing.processLine(lineCounter,this.getLine(), relationsVectors, relationsToBuildFor);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -51,13 +51,6 @@ public class Task implements Runnable {
 		this.line = line;
 	}
 	
-	public void processLine(int lineCounter,String line, SharedVectorsCollection relationsVectors, List<String> relationsToBuildFor) throws InterruptedException {
-		boolean selectedRelationsOnly = relationsToBuildFor != null;
-		
-		Thread.currentThread().sleep(3000);
-		String[] lineSplit = line.split("\\|");
-		System.err.println("Processed line nr "+ lineCounter+" on thread" +  Thread.currentThread().getName());
 
-	}
 
 }
