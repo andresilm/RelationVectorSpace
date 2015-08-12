@@ -1,4 +1,4 @@
-package main;
+package common;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +8,7 @@ public class SharedVectorsCollection {
 	Map<String, RelationVector> relationsVectors;
 	
 
-	SharedVectorsCollection() {
+	public SharedVectorsCollection() {
 		relationsVectors = new HashMap<String, RelationVector>();
 
 	}

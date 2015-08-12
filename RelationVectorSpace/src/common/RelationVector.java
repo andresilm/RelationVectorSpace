@@ -3,7 +3,7 @@
  * of pairs of (subj,obj)
  */
 
-package main;
+package common;
 
 import java.util.HashMap;
 

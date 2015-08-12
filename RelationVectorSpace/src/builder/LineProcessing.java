@@ -1,6 +1,8 @@
-package main;
+package builder;
 
 import java.util.List;
+
+import common.SharedVectorsCollection;
 
 public class LineProcessing {
 	

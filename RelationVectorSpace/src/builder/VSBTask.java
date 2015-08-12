@@ -1,8 +1,10 @@
-package main;
+package builder;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import common.SharedVectorsCollection;
 
 public class VSBTask implements Runnable {
 	public static int runningTasks = 0;
