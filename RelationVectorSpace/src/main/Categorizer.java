@@ -40,6 +40,10 @@ public class Categorizer {
 		
 		if (categories.isEmpty()) {//no category found
 		categories.add(lemmatizer.getLemma(arg));
+		System.err.println("No category found; using lemmatization.");
+		}
+		else {
+			System.err.println("Categories found!.");
 		}
 		return categories;
 	}

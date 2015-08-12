@@ -4,31 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Task implements Runnable {
+public class VSBTask implements Runnable {
 	public static int runningTasks = 0;
+	 
 	SharedVectorsCollection relationsVectors;
 	private String line;
 	private int lineCounter;
 
 	List<String> relationsToBuildFor;
 
-	Task(int lineCounter,String line, SharedVectorsCollection relationsVectors, List<String> relationsToBuildFor) {
+	VSBTask(int lineCounter,String line, SharedVectorsCollection relationsVectors, List<String> relationsToBuildFor) {
 		
 		this.relationsVectors = relationsVectors;
 		this.line = line;
 		this.lineCounter = lineCounter;
 		this.relationsToBuildFor = relationsToBuildFor;
 
-	System.err.println("Created task on thread " +  Thread.currentThread().getName());
-	++runningTasks;
+	//System.err.println("Created task on thread " +  Thread.currentThread().getName());
+	
 	}
 
 	@Override
 	public void run() {
-		
-		 System.err.println("Starting thread " +
+		++runningTasks;
+		/* System.err.println("Starting thread " +
 		 Thread.currentThread().getName());
-
+*/
 		try {
 			LineProcessing.processLine(lineCounter,this.getLine(), relationsVectors, relationsToBuildFor);
 		} catch (InterruptedException e) {
@@ -40,8 +41,10 @@ public class Task implements Runnable {
 
 		--runningTasks;// will be destroyed soon.
 		
-
+		
 	}
+	
+	
 
 	private String getLine() {
 		return line;

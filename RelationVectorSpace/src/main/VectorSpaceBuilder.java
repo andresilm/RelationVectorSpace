@@ -45,8 +45,8 @@ public class VectorSpaceBuilder {
 
 	public void create(int numThreads, List<String> relationsToBuild) {
 		ScheduledThreadPoolExecutor taskRunner;
-	
-		numThreads = 2;//Runtime.getRuntime().availableProcessors()-1;
+		
+		numThreads = Runtime.getRuntime().availableProcessors()-1;
 		taskRunner =  new ScheduledThreadPoolExecutor(numThreads);
 		taskRunner.setMaximumPoolSize(numThreads);
 		taskRunner.setCorePoolSize(numThreads);
@@ -55,24 +55,19 @@ public class VectorSpaceBuilder {
 		
 		while (input.hasNextLine()) {
 			String line = input.nextLine();
-			System.out.println("Processing line nr " + lineCounter);
+			//System.out.println("Processing line nr " + lineCounter);
 			
-		while (taskRunner.getActiveCount() == numThreads) {
+		while (taskRunner.getActiveCount() >= numThreads) {
 			//System.err.println("Number of active threads is "+Task.runningTasks + ". Waiting...");
-			
 		}
-			Task lineProcessingTask = new Task(lineCounter,line, getRelationsVectors(),relationsToBuild);
+			VSBTask lineProcessingTask = new VSBTask(lineCounter,line, getRelationsVectors(),relationsToBuild);
 			taskRunner.execute(lineProcessingTask);
 			
 			
-		
-			
-		
-			System.err.println("Number of instantiated tasks :"+Task.runningTasks);
 			++lineCounter;
 
 		}
-		System.err.println("VectorSpaceBuilder main loop finished");
+		//System.err.println("VectorSpaceBuilder main loop finished");
 		System.err.println("Maximum pool size: " + taskRunner.getMaximumPoolSize());
 	}
 
