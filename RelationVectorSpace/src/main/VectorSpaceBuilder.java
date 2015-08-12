@@ -25,8 +25,6 @@ public class VectorSpaceBuilder {
 	int runningTasks = 0;
 	
 	
-	
-	
 	VectorSpaceBuilder(String extractionFilename) throws IOException {
 		input = new Scanner(new FileReader(new File(extractionFilename)));
 		relationsVectors = new SharedVectorsCollection();
@@ -37,7 +35,9 @@ public class VectorSpaceBuilder {
 
 	public void saveToFile(String outputFilename) throws IOException {
 		BufferedWriter output = new BufferedWriter(new FileWriter(new File(outputFilename)));
+		System.err.println("Will save " + this.relationsVectors.getVectors().keySet().size() + " relations.");
 		for (String key: this.relationsVectors.getVectors().keySet()) {
+			System.err.println("Saving on disk '" + key + "'.");
 			output.write(key + "|" + this.relationsVectors.getVectors().get(key).toString() + "\n");
 		}
 		output.close();
@@ -50,15 +50,15 @@ public class VectorSpaceBuilder {
 		taskRunner =  new ScheduledThreadPoolExecutor(numThreads);
 		taskRunner.setMaximumPoolSize(numThreads);
 		taskRunner.setCorePoolSize(numThreads);
-		System.out.println("Running with " + numThreads + " cores.");
+		System.out.println("Will use " + numThreads + " more cores.");
 		int lineCounter = 0;
 		
 		while (input.hasNextLine()) {
 			String line = input.nextLine();
-			//System.out.println("Processing line nr " + lineCounter);
+			System.err.println("Processing line nr " + lineCounter);
 			
 		while (taskRunner.getActiveCount() >= numThreads) {
-			//System.err.println("Number of active threads is "+Task.runningTasks + ". Waiting...");
+			
 		}
 			VSBTask lineProcessingTask = new VSBTask(lineCounter,line, getRelationsVectors(),relationsToBuild);
 			taskRunner.execute(lineProcessingTask);
@@ -67,7 +67,7 @@ public class VectorSpaceBuilder {
 			++lineCounter;
 
 		}
-		//System.err.println("VectorSpaceBuilder main loop finished");
+		
 		System.err.println("Maximum pool size: " + taskRunner.getMaximumPoolSize());
 	}
 

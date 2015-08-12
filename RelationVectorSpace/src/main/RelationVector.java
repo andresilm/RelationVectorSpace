@@ -69,7 +69,7 @@ public class RelationVector {
 
 	@Override
 	public String toString() {
-		return vectors[ARG1].toString() + ";" + vectors[ARG2].toString();
+		return vectors[ARG1].toString() + "|0,0|" + vectors[ARG2].toString();
 	}
 
 	public void normalize() {

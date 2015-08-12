@@ -3,8 +3,18 @@ package main;
 import java.util.List;
 
 public class LineProcessing {
-	@SuppressWarnings("static-access")
+	
+	/*
+	 * Python version Compatibility: process line of FramEx extraction in the old format. 
+	 */
 	public static void processLine(int lineCounter, String line, SharedVectorsCollection relationsVectors,
+			List<String> relationsToBuildFor) throws InterruptedException {
+		relationsVectors.increaseArgumentCount("no_rel", 0, Thread.currentThread().getName());
+		relationsVectors.increaseArgumentCount("no_rel", 1, Thread.currentThread().getName());
+	}
+	
+	@SuppressWarnings("static-access")
+	public static void processLineFuture(int lineCounter, String line, SharedVectorsCollection relationsVectors,
 			List<String> relationsToBuildFor) throws InterruptedException {
 
 		final int sentCol = 0;
@@ -49,6 +59,9 @@ public class LineProcessing {
 
 	}
 
+	/*
+	 * Process line of FramEx extraction in the new format
+	 */
 	private static String getWordWithIndex(String sentence, int arg1RootIndex) {
 		int start = 0;
 
