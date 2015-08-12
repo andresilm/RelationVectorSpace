@@ -1,10 +1,5 @@
 package main;
 
-/**
- * https://github.com/sandeepchawla/nlp/blob/master/src/nlp/hwz/dict/corenlp/Lemmatizer.java
- */
-
-
 import java.util.Properties;
 
 import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
@@ -15,7 +10,7 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 
-public class Lemmatizer {
+class Lemmatizer {
 	static Lemmatizer m_lemmatizer;
 	Properties props;
 	StanfordCoreNLP pipeline;
@@ -45,5 +40,4 @@ public class Lemmatizer {
 		//System.err.println("Lemmatization of " + text + " is " + lemma);
 		return lemma;
 	}
-
 }

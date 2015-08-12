@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SharedRelationVectors {
+public class SharedVectorsCollection {
 	Map<String, RelationVector> relationsVectors;
 	
 
-	SharedRelationVectors() {
+	SharedVectorsCollection() {
 		relationsVectors = new HashMap<String, RelationVector>();
 
 	}
@@ -29,4 +29,6 @@ public class SharedRelationVectors {
 	public Map<String, RelationVector> getVectors() {
 		return relationsVectors;
 	}
+	
+	
 }
