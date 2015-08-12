@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -16,12 +17,12 @@ public class VectorSpaceBuilder {
 	SharedRelationVectors relationsVectors = new SharedRelationVectors();
 	Scanner input;
 	BufferedWriter output;
+	int runningTasks = 0;
 
 	VectorSpaceBuilder(String extractionFilename) throws IOException {
-		loadTaxonomyDict();
-		
+
 		input = new Scanner(new FileReader(new File(extractionFilename)));
-		
+
 	}
 
 	public void buildSpaceFor(List<String> relationsToBuild) {
@@ -33,12 +34,21 @@ public class VectorSpaceBuilder {
 	}
 
 	public void create(int numThreads) {
-		ScheduledThreadPoolExecutor executor;
-		executor = new ScheduledThreadPoolExecutor(numThreads);
-	}
+		ScheduledThreadPoolExecutor taskRunner;
+		taskRunner = new ScheduledThreadPoolExecutor(numThreads);
 
-	private void loadTaxonomyDict() throws FileNotFoundException {
-		Scanner taxFile = new Scanner(new FileReader(new File("resources/taxonomy.txt")));
+		while (input.hasNextLine()) {
+			String line = input.nextLine();
+			while (Task.runningTasks == numThreads)
+				;
+			Task lineProcessingTask = new Task(line,relationsVectors);
+			taskRunner.execute(lineProcessingTask);
+			
+			
+		}
 	}
+	
+
+	
 
 }

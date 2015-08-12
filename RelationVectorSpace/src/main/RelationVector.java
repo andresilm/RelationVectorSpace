@@ -10,6 +10,9 @@ import java.util.HashMap;
 
 
 public class RelationVector {
+	public final int ARG1 = 0;
+	public final int ARG2 = 1;
+
 	class Vector extends HashMap<String, Integer> {
 		
 		public float mean() {
@@ -36,9 +39,6 @@ public class RelationVector {
 	}
 
 	Vector[] vectors;
-	public final int ARG1 = 0;
-	public final int ARG2 = 1;
-
 	
 	
 	RelationVector() {
