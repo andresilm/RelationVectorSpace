@@ -22,5 +22,11 @@
   		<artifactId>stanford-corenlp</artifactId>
   		<version>3.5.1</version>
   	</dependency>
-  	</dependencies>
+  <dependency>
+  	<groupId>edu.stanford.nlp</groupId>
+  	<artifactId>stanford-corenlp</artifactId>
+  	<version>3.5.1</version>
+  	<classifier>models</classifier>
+  </dependency>
+  </dependencies>
 </project>
