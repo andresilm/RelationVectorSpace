@@ -45,7 +45,7 @@ public class VectorSpaceBuilder {
 
 	public void saveToFile(String outputFilename) throws IOException {
 		BufferedWriter output = new BufferedWriter(new FileWriter(new File(outputFilename)));
-		System.err.println("Will save " + this.relationsVectors.getVectors().keySet().size() + " relations.");
+		System.out.println("Will save " + this.relationsVectors.getVectors().keySet().size() + " relations.");
 		for (String key: this.relationsVectors.getVectors().keySet()) {
 			System.out.println("Saving on disk '" + key + "'.");
 			output.write(key + "|" + this.relationsVectors.getVectors().get(key).toString() + "\n");
