@@ -67,12 +67,14 @@ public class VectorSpaceBuilder {
 		while (input.hasNextLine()) {
 			++taskCounter;
 			String line = input.nextLine();
-			System.err.println("Processing line nr " + lineCounter);
+			
 			
 		
 		//wait some task to finish if the current number of threads reached the maximum specified
 		while (taskRunner.getActiveCount() >= numThreads)
 			;
+		
+			
 			
 		
 			VSBTask lineProcessingTask = new VSBTask(lineCounter,line, getRelationsVectors(),relationsToBuild);
@@ -86,7 +88,7 @@ public class VectorSpaceBuilder {
 		//wait until all threads finish before writing the results to disk
 		
 		while (taskRunner.getCompletedTaskCount() < taskCounter)
-			System.err.println("Waiting. Completed: " + taskRunner.getCompletedTaskCount() + " of " + taskCounter + " tasks launched.");
+			//System.err.println("Waiting. Completed: " + taskRunner.getCompletedTaskCount() + " of " + taskCounter + " tasks launched.");
 			;
 		
 		System.err.println("Maximum pool size: " + taskRunner.getMaximumPoolSize());

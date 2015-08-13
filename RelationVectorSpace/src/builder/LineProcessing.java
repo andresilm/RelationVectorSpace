@@ -46,9 +46,10 @@ public class LineProcessing {
 		String[] lineSplit = line.split("\\|");
 
 		if (lineSplit.length < 4) {
-			System.out.println("Skipping line, no relation data found.");
+			//System.out.println("Skipping line, no relation data found.");
 			
 		} else {
+			System.out.println("Processing line " + lineCounter);
 			String sentence = lineSplit[sentCol];
 
 			String[] extrRels = lineSplit[dataCol].split("\\;");

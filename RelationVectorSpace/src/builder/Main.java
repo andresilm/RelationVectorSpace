@@ -16,7 +16,7 @@ public class Main {
 		if (args.length == 3) {
 			String inputFilename = args[0];
 			String outputFilename = args[1];
-			int numThreads = 8;//Integer.valueOf(args[2]);
+			int numThreads = Integer.valueOf(args[2]);
 
 			List<String> relationsToBuild = null;
 			
@@ -35,8 +35,6 @@ public class Main {
 			System.out.println("Vector space creation started.");
 			spaceBuilder.create(numThreads, relationsToBuild);
 			
-			
-		
 			
 			System.out.println("Saving relations vectors to file " + outputFilename);
 			spaceBuilder.saveToFile(outputFilename);
