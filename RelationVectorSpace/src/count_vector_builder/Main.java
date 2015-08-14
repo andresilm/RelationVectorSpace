@@ -1,4 +1,4 @@
-package builder;
+package count_vector_builder;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -30,7 +30,7 @@ public class Main {
 					+ " relations, using " + inputFilename + " as source.");
 		
 
-			VectorSpaceBuilder spaceBuilder = new VectorSpaceBuilder(inputFilename);
+			CountVectorsBuilder spaceBuilder = new CountVectorsBuilder(inputFilename);
 
 			System.out.println("Vector space creation started.");
 			spaceBuilder.create(numThreads, relationsToBuild);

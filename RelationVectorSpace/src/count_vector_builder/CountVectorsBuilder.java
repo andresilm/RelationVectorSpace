@@ -1,4 +1,4 @@
-package builder;
+package count_vector_builder;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,8 +7,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
@@ -22,13 +24,15 @@ import common.SharedVectorsCollection;
 import edu.stanford.nlp.time.SUTime.Time;
 import edu.stanford.nlp.time.SUTime.TimeUnit;
 
-public class VectorSpaceBuilder {
+public class CountVectorsBuilder {
 	private SharedVectorsCollection relationsVectors;
 	Scanner input;
 	int runningTasks = 0;
 	
+
 	
-	VectorSpaceBuilder(String extractionFilename) throws IOException {
+	
+	CountVectorsBuilder(String extractionFilename) throws IOException {
 		input = new Scanner(new FileReader(new File(extractionFilename)));
 		relationsVectors = new SharedVectorsCollection();
 		
@@ -37,7 +41,7 @@ public class VectorSpaceBuilder {
 		 * This is to avoid that the first N threads try to get an instance, and therefore try to call 3 times the constructor
 		 */
 		Categorizer c = Categorizer.getInstance();
-		System.out.println("Categoriea loaded.");
+		System.out.println("Categories loaded.");
 		
 	}
 
@@ -46,9 +50,11 @@ public class VectorSpaceBuilder {
 	public void saveToFile(String outputFilename) throws IOException {
 		BufferedWriter output = new BufferedWriter(new FileWriter(new File(outputFilename)));
 		System.out.println("Will save " + this.relationsVectors.getVectors().keySet().size() + " relations.");
+		
 		for (String key: this.relationsVectors.getVectors().keySet()) {
 			System.out.println("Saving on disk '" + key + "'.");
 			output.write(key + "|" + this.relationsVectors.getVectors().get(key).toString() + "\n");
+			
 		}
 		output.close();
 	}
@@ -101,6 +107,18 @@ public class VectorSpaceBuilder {
 	void setRelationsVectors(SharedVectorsCollection relationsVectors) {
 		this.relationsVectors = relationsVectors;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

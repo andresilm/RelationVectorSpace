@@ -1,4 +1,4 @@
-package builder;
+package count_vector_builder;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
