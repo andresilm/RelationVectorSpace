@@ -13,49 +13,14 @@ public class RelationVector {
 	boolean normalized = false;
 
 	@SuppressWarnings("serial")
-	class Vector extends HashMap<String, Integer> {
+	
 
-		public float mean() {
-			return 1.0f;
-		}
-
-		public float euclideanDistance(Vector vec) {
-			float result = 0f;
-			System.err.println("euclidean distance not implemented yet!");
-			return result;
-		}
-
-		public Vector getNormalizedVector() {
-			System.err.println("getNormalizedVector not implemented yet!");
-			return null;
-
-		}
-
-		@Override
-		public String toString() {
-			String ret = "";
-			for (String key : this.keySet()) {
-				ret += key + ":" + this.get(key) + ",";
-			}
-			return ret;
-		}
-
-		void increaseCountOnKey(String key) {
-			if (!this.containsKey(key)) {
-				this.put(key, 0);
-			}
-
-			this.put(key, this.get(key) + 1);
-		}
-
-	}
-
-	private Vector[] vectors;
+	private CountVector[] vectors;
 
 	RelationVector() {
-		vectors = new Vector[2];
-		vectors[ARG1] = new Vector();
-		vectors[ARG2] = new Vector();
+		vectors = new CountVector[2];
+		vectors[ARG1] = new CountVector();
+		vectors[ARG2] = new CountVector();
 	}
 
 	public float similarity(RelationVector rvec) {

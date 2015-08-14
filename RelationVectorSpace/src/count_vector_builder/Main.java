@@ -13,10 +13,11 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 public class Main {
 	public static void main(String[] args) throws IOException, InterruptedException {
-		if (args.length == 3) {
+		if (args.length == 4) {
 			String inputFilename = args[0];
 			String outputFilename = args[1];
-			int numThreads = Integer.valueOf(args[2]);
+			String featuresFilename = args[2];
+			int numThreads = Integer.valueOf(args[3]);
 
 			List<String> relationsToBuild = null;
 			
@@ -37,7 +38,8 @@ public class Main {
 			
 			
 			System.out.println("Saving relations vectors to file " + outputFilename);
-			spaceBuilder.saveToFile(outputFilename);
+			spaceBuilder.saveCountVectorsToFile(outputFilename);
+			spaceBuilder.saveFeaturesToFiles(featuresFilename);
 
 			System.out.println("Done.");
 

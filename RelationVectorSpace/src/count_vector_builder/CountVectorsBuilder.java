@@ -28,75 +28,96 @@ public class CountVectorsBuilder {
 	private SharedVectorsCollection relationsVectors;
 	Scanner input;
 	int runningTasks = 0;
-	
 
-	
-	
 	CountVectorsBuilder(String extractionFilename) throws IOException {
 		input = new Scanner(new FileReader(new File(extractionFilename)));
 		relationsVectors = new SharedVectorsCollection();
-		
+
 		/*
-		 * First invokation to Categorizer i.e. the only time the constructor is invoked.
-		 * This is to avoid that the first N threads try to get an instance, and therefore try to call 3 times the constructor
+		 * First invokation to Categorizer i.e. the only time the constructor is
+		 * invoked. This is to avoid that the first N threads try to get an
+		 * instance, and therefore try to call 3 times the constructor
 		 */
 		Categorizer c = Categorizer.getInstance();
 		System.out.println("Categories loaded.");
-		
+
 	}
 
-	
-
-	public void saveToFile(String outputFilename) throws IOException {
+	public void saveCountVectorsToFile(String outputFilename) throws IOException {
 		BufferedWriter output = new BufferedWriter(new FileWriter(new File(outputFilename)));
+
 		System.out.println("Will save " + this.relationsVectors.getVectors().keySet().size() + " relations.");
 		
-		for (String key: this.relationsVectors.getVectors().keySet()) {
+		output.write(relationsVectors.dimensionOfVectorArgument1() + "\n");
+		output.write(relationsVectors.dimensionOfVectorArgument2() + "\n");
+		
+
+		for (String key : this.relationsVectors.getVectors().keySet()) {
 			System.out.println("Saving on disk '" + key + "'.");
 			output.write(key + "|" + this.relationsVectors.getVectors().get(key).toString() + "\n");
+
+		}
+
+		output.close();
+	}
+
+	public void saveFeaturesToFiles(String featuresFilenamePrefix) throws IOException {
+		BufferedWriter arg1FeaturesOutput = new BufferedWriter(
+				new FileWriter(new File(featuresFilenamePrefix + "_arg1.txt")));
+		BufferedWriter arg2FeaturesOutput = new BufferedWriter(
+				new FileWriter(new File(featuresFilenamePrefix + "_arg2.txt")));
+		
+		
+		for (String arg : relationsVectors.getArg1Features().keySet()) {
+			arg1FeaturesOutput.write(relationsVectors.getArg1Features().get(arg) + ":" + arg + "\n");
 			
 		}
-		output.close();
+
+		arg1FeaturesOutput.close();
+		
+		for (String arg : relationsVectors.getArg2Features().keySet()) {
+			arg2FeaturesOutput.write(relationsVectors.getArg2Features().get(arg) + ":" + arg + "\n");
+			
+		}
+
+		arg2FeaturesOutput.close();
 	}
 
 	public void create(int numThreads, List<String> relationsToBuild) {
 		ScheduledThreadPoolExecutor taskRunner;
-		
-	//	numThreads = Runtime.getRuntime().availableProcessors()-1;
-		taskRunner =  new ScheduledThreadPoolExecutor(numThreads);
+
+		// numThreads = Runtime.getRuntime().availableProcessors()-1;
+		taskRunner = new ScheduledThreadPoolExecutor(numThreads);
 		taskRunner.setMaximumPoolSize(numThreads);
 		taskRunner.setCorePoolSize(numThreads);
 		System.out.println("Will use " + numThreads + " more cores.");
 		int lineCounter = 0;
 		int taskCounter = 0;
-		
+
 		while (input.hasNextLine()) {
 			++taskCounter;
 			String line = input.nextLine();
-			
-			
-		
-		//wait some task to finish if the current number of threads reached the maximum specified
-		while (taskRunner.getActiveCount() >= numThreads)
-			;
-		
-			
-			
-		
-			VSBTask lineProcessingTask = new VSBTask(lineCounter,line, getRelationsVectors(),relationsToBuild);
+
+			// wait some task to finish if the current number of threads reached
+			// the maximum specified
+			while (taskRunner.getActiveCount() >= numThreads)
+				;
+
+			VSBTask lineProcessingTask = new VSBTask(lineCounter, line, getRelationsVectors(), relationsToBuild);
 			taskRunner.execute(lineProcessingTask);
-			
+
 			++lineCounter;
-			
 
 		}
-		
-		//wait until all threads finish before writing the results to disk
-		
+
+		// wait until all threads finish before writing the results to disk
+
 		while (taskRunner.getCompletedTaskCount() < taskCounter)
-			//System.err.println("Waiting. Completed: " + taskRunner.getCompletedTaskCount() + " of " + taskCounter + " tasks launched.");
+			// System.err.println("Waiting. Completed: " +
+			// taskRunner.getCompletedTaskCount() + " of " + taskCounter + "
+			// tasks launched.");
 			;
-		
+
 		System.err.println("Maximum pool size: " + taskRunner.getMaximumPoolSize());
 	}
 
@@ -107,21 +128,5 @@ public class CountVectorsBuilder {
 	void setRelationsVectors(SharedVectorsCollection relationsVectors) {
 		this.relationsVectors = relationsVectors;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
 
 }
