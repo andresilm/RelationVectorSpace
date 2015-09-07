@@ -21,7 +21,7 @@ public class Main {
 
 			List<String> relationsToBuild = null;
 			
-			if (args.length == 4 && !args[3].equals("")) {
+			if (args.length == 5 && !args[4].equals("")) {
 
 				relationsToBuild = loadRelationsList(args[3]);
 			}
@@ -45,7 +45,7 @@ public class Main {
 
 		}
 		else {
-			System.out.println("Usage: framex_extraction_file	occurrences_count_output_file	[list_of_relations_to_count_file]");
+			System.out.println("Usage: framex_extraction_file	occurrences_count_output	features_output number_threads	[list_of_relations_to_count_file]");
 		}
 
 	}
