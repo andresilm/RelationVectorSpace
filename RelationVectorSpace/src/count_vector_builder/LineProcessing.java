@@ -61,17 +61,17 @@ public class LineProcessing {
 					String pred = relCols[predCol].split("\\:")[normPredCol];
 
 					if (!selectedRelationsOnly || relationsToBuildFor.contains(pred)) {
-
+						System.out.println("Predicate " + pred + " has to be processed.");
 						String[] argData1 = relCols[arg1Col].split("\\:");
 						String[] argData2 = relCols[arg2Col].split("\\:");
 						
-						/*System.out.println("Extracted data");
+						System.out.println("Extracted data");
 						System.out.println(argData1[0]);
 						System.out.println(argData1[1]);
 						System.out.println(argData2[0]);
 						System.out.println(argData2[1]);
 						System.out.println("[[END]Extracted data");
-						*/
+						
 
 						List<String> arg1Categ = categorizer.getCategory(sentence, argData1);
 						List<String> arg2Categ = categorizer.getCategory(sentence, argData2);

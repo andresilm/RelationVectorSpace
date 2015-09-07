@@ -13,7 +13,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 public class Main {
 	public static void main(String[] args) throws IOException, InterruptedException {
-		if (args.length == 4) {
+		if (args.length >= 4) {
 			String inputFilename = args[0];
 			String outputFilename = args[1];
 			String featuresFilename = args[2];
@@ -23,7 +23,7 @@ public class Main {
 			
 			if (args.length == 5 && !args[4].equals("")) {
 
-				relationsToBuild = loadRelationsList(args[3]);
+				relationsToBuild = loadRelationsList(args[4]);
 			}
 
 			System.out.println("Will create the relation vector space for "
