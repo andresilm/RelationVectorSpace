@@ -19,9 +19,10 @@ public class SharedVectorsCollection {
 		setArg2Features(new HashMap<String,Integer>());
 	}
 
-	public synchronized void increaseArgumentCount(String relName, int argIndex, String category) {
+	public synchronized void increaseArgumentCount(String relName, int vecIndex, String category) {
 		int index=-1;
-		if (argIndex == 0) {
+		
+		if (vecIndex == 0) {
 			if (!getArg1Features().containsKey(category)) {
 				index = getArg1Features().size();
 				getArg1Features().put(category, index);
@@ -29,7 +30,7 @@ public class SharedVectorsCollection {
 				
 		}
 			
-		else if (argIndex == 1) {
+		else if (vecIndex == 1) {
 			index = getArg2Features().size();
 			if (!getArg2Features().containsKey(category)) {
 				getArg2Features().put(category, index);
@@ -45,7 +46,7 @@ public class SharedVectorsCollection {
 		
 		String catKey = String.valueOf(index);
 
-		relationsVectors.get(relName).addOccurrenceToArgumentVector(argIndex, catKey);
+		relationsVectors.get(relName).addOccurrenceToArgumentVector(vecIndex, catKey);
 		
 		
 			

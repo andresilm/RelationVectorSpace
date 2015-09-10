@@ -104,6 +104,7 @@ public class CountVectorsBuilder {
 				;
 
 			VSBTask lineProcessingTask = new VSBTask(lineCounter, line, getRelationsVectors(), relationsToBuild);
+			
 			taskRunner.execute(lineProcessingTask);
 
 			++lineCounter;

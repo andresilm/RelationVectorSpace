@@ -15,11 +15,11 @@ public class VSBTask implements Runnable {
 	SharedVectorsCollection relationsVectors;
 	private String line;
 	private int lineCounter;
-	
+
 	List<String> relationsToBuildFor;
 
 	VSBTask(int lineCounter, String line, SharedVectorsCollection relationsVectors, List<String> relationsToBuildFor) {
-		
+
 		this.relationsVectors = relationsVectors;
 		this.line = line;
 		this.lineCounter = lineCounter;
@@ -37,14 +37,9 @@ public class VSBTask implements Runnable {
 		 * System.err.println("Starting thread " +
 		 * Thread.currentThread().getName());
 		 */
+
 		try {
 			LineProcessing.processLine(lineCounter, this.getLine(), relationsVectors, relationsToBuildFor);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

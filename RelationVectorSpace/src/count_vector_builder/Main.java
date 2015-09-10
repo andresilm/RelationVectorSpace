@@ -39,6 +39,7 @@ public class Main {
 			
 			System.out.println("Saving relations vectors to file " + outputFilename);
 			spaceBuilder.saveCountVectorsToFile(outputFilename);
+			System.out.println("Saving features to file " + featuresFilename);
 			spaceBuilder.saveFeaturesToFiles(featuresFilename);
 
 			System.out.println("Done.");

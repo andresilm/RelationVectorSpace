@@ -12,7 +12,7 @@ public class RelationVector {
 	public final int ARG2 = 1;
 	boolean normalized = false;
 
-	@SuppressWarnings("serial")
+	
 	
 
 	private CountVector[] vectors;

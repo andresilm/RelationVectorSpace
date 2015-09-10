@@ -26,9 +26,9 @@ public class LineProcessing {
 		relationsVectors.increaseArgumentCount("no_rel", 1, Thread.currentThread().getName());
 	}
 
-	@SuppressWarnings("static-access")
+	
 	public static void processLine(int lineCounter, String line, SharedVectorsCollection relationsVectors,
-			List<String> relationsToBuildFor) throws InterruptedException, IOException {
+			List<String> relationsToBuildFor) throws IOException {
 		
 		Categorizer categorizer = Categorizer.getInstance();
 		final int sentCol = 1;
@@ -39,17 +39,16 @@ public class LineProcessing {
 		final int arg2Col = 2;
 
 		final int normPredCol = 2;
-		final int argRootWordIndexCol = 1;
 
 		boolean selectedRelationsOnly = relationsToBuildFor != null;
 
 		String[] lineSplit = line.split("\\|");
 
 		if (lineSplit.length < 4) {
-			//System.out.println("Skipping line, no relation data found.");
+			System.out.println("Skipping line, no relation data found.");
 			
 		} else {
-			System.out.println("Processing line " + lineCounter);
+			//System.out.println("Processing line " + lineCounter);
 			String sentence = lineSplit[sentCol];
 
 			String[] extrRels = lineSplit[dataCol].split("\\;");
@@ -57,11 +56,13 @@ public class LineProcessing {
 			for (String relData : extrRels) {
 				if (!relData.equals("")) {
 					String[] relCols = relData.split("\\#")[relCol].split("\\,");
-
+System.out.println(relData);
 					String pred = relCols[predCol].split("\\:")[normPredCol];
 
 					if (!selectedRelationsOnly || relationsToBuildFor.contains(pred)) {
+						
 						System.out.println("Predicate " + pred + " has to be processed.");
+						
 						String[] argData1 = relCols[arg1Col].split("\\:");
 						String[] argData2 = relCols[arg2Col].split("\\:");
 						

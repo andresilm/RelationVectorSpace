@@ -79,7 +79,6 @@ public class Categorizer {
 
 			categories = new ArrayList();
 
-		
 			arg = arg.replace("\\_", "\\ ");
 
 			String key = null;
@@ -107,29 +106,22 @@ public class Categorizer {
 	}
 
 	/*
-	private String getKeyWithHighestOverlapOld(String arg) {
-
-		double maxScore = 0;
-		String highestOverlapKey = null;
-
-		for (String key : taxonomyDict.keySet()) {
-			double score = 0;
-			//BleuMeasurer bleu = new BleuMeasurer();
-			String[] keyWordsS = key.split("\\ ");
-			String[] argWordsS = arg.split("\\ ");
-
-			bleu.addSentence(keyWordsS, argWordsS);
-			score = bleu.bleu();
-
-			if (score > maxScore) {
-				maxScore = score;
-				highestOverlapKey = key;
-			}
-		}
-		System.err.println("MAX BLEU score '" + arg + "' <--> '" + highestOverlapKey + "'" + " = " + maxScore);
-		return highestOverlapKey;
-
-	}*/
+	 * private String getKeyWithHighestOverlapOld(String arg) {
+	 * 
+	 * double maxScore = 0; String highestOverlapKey = null;
+	 * 
+	 * for (String key : taxonomyDict.keySet()) { double score = 0;
+	 * //BleuMeasurer bleu = new BleuMeasurer(); String[] keyWordsS = key.split(
+	 * "\\ "); String[] argWordsS = arg.split("\\ ");
+	 * 
+	 * bleu.addSentence(keyWordsS, argWordsS); score = bleu.bleu();
+	 * 
+	 * if (score > maxScore) { maxScore = score; highestOverlapKey = key; } }
+	 * System.err.println("MAX BLEU score '" + arg + "' <--> '" +
+	 * highestOverlapKey + "'" + " = " + maxScore); return highestOverlapKey;
+	 * 
+	 * }
+	 */
 
 	private String getKeyWithHighestOverlap(String arg) {
 		int minLength = -1;
@@ -137,7 +129,7 @@ public class Categorizer {
 
 		for (String key : taxonomyDict.keySet()) {
 			String[] keyWords = key.split("\\ ");
-			if (Arrays.asList(keyWords).contains(arg) && (key.length() < minLength || minLength==-1)) {
+			if (Arrays.asList(keyWords).contains(arg) && (key.length() < minLength || minLength == -1)) {
 				minLength = key.length();
 				highestOverlapKey = key;
 			}
