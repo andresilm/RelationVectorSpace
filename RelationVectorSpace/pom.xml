@@ -6,6 +6,17 @@
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
+    <plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-assembly-plugin</artifactId>
+  <configuration>
+    <archive>
+      <manifest>
+        <mainClass>count_vector_builder.Main</mainClass>
+      </manifest>
+    </archive>
+  </configuration>
+</plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.3</version>
